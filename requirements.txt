@@ -1,0 +1,35 @@
+# FinGuard 360 - Python dependencies
+# Install:            python -m pip install -r requirements.txt
+# Exact versions:     python -m pip install -r requirements-lock.txt
+# Ranges allow patch/minor updates; versions below are what the app is tested with.
+
+# --- Web API ---
+fastapi>=0.141.1,<1.0        # REST API + static UI
+uvicorn[standard]>=0.54,<1.0 # ASGI server (local dev and Cloud Run)
+pydantic>=2.14,<3            # request/response validation
+pydantic-settings>=2.15,<3   # settings from .env / environment
+python-multipart>=0.0.32     # PDF/image uploads (Document Desk, Scam Scanner)
+
+# --- Google AI ---
+google-genai>=2.30,<3              # Gemini API / Gemini on Vertex AI (used by app/services/ai.py)
+google-adk>=2.12,<3                # Agent Development Kit: Orchestrator + 4 tool-calling agents (app/agents/)
+google-antigravity>=0.1.22,<0.2    # Antigravity SDK for Gemini agents (reference; role vs ADK not decided)
+
+# --- Tests ---
+pytest>=9.1,<10
+httpx>=0.28,<1               # FastAPI TestClient
+
+# --- Planned Google Cloud clients (uncomment when each live integration is built) ---
+# google-cloud-bigquery            # transactions_history, aml_network_edges, cashflow_30d_forecasts
+# google-cloud-pubsub              # transactions-topic live payment stream
+# google-cloud-documentai          # statement, ID, invoice and claim extraction
+# google-cloud-discoveryengine     # Vertex AI Search (RBI/FATF rules, underwriting policy, product catalog)
+# google-cloud-aiplatform          # Vertex AI fraud model endpoint
+# google-cloud-storage             # uploaded documents and dataset import
+# google-cloud-secret-manager      # API keys and DB passwords
+# cloud-sql-python-connector[pg8000]  # Cloud SQL / AlloyDB (customers, vendors, loans, claims, cases)
+# google-cloud-aiplatform[agent_engines,adk]  # Vertex AI Agent Engine hosting + RAG Engine (vertexai SDK)
+# google-cloud-dlp                 # Sensitive Data Protection: mask PII before Gemini
+# google-cloud-modelarmor          # Model Armor: prompt/response screening (verify package name before use)
+# google-cloud-translate           # Cloud Translation: customer messages in Indian languages
+# Gemini Live API (voice) uses google-genai (already above); no extra package

@@ -1,0 +1,28 @@
+# Project Memory — FinGuard 360
+
+- Project: FinGuard 360, banking/BFSI app (hackathon-style), folder `D:\bank-app`.
+- Language decision: Python (heavy AI usage). Framework: FastAPI.
+- Cloud: Google Cloud is the target; build and run locally first.
+- AI default: mock mode; real Gemini via AI Studio key locally, Vertex AI later.
+- Existing assets: `finguard_backend_and_mock_data.py` (FastAPI + mock data, GCP calls are simulated only — no SDKs used yet) and `finguard_360_command_center.html` (static dashboard, no API calls yet).
+- Demo personas: CUST-101 Aarav Sharma (retail), SME-202 Apex Manufacturing (deposit discrepancy 18,500 vs 12,400), AML-303 Shell Co. A (case AM-89412, $1.2M circular flow).
+- Product: FinGuard, an end-to-end AI risk, document and financial copilot. One shared brain links the customer experience and the bank officer workflow.
+- 3 personas: (1) customers & SMEs: scam warnings, pause-and-confirm via chat (never freeze the account), 30-day cash-flow forecast plus product suggestions; (2) loan & claims officers: Document AI extraction, cross-check against the real ledger, instant risk score; (3) fraud & compliance: suspicious flow detection, RBI/FATF clause retrieval, SAR draft for sign-off.
+- Story = customer lifecycle: daily banking -> loan/claim -> back-office oversight. Findings hand off as ready-made cases.
+- Full details: docs/project-overview.md, docs/requirements.md (R1-R5).
+- UI (docs/ui-spec.md): light mode; Blue = action, Green = safe, Amber = warning, Red = critical, Purple = AI only. Fixed top bar with logo, 5 tabs (Command Center, Live Payments & Scam Guard, Loan & Document Desk, Compliance & AML Studio, Personal Financial Coach) and a persona switcher. Floating ✨ FinGuard Copilot drawer. Actions on pages 2-4 update the Command Center KPIs (Open Alerts down, Projected Savings up).
+- Fixed demo numbers: $48,500 new-device payment -> 95% risk, held; clean statement $14,250 = $14,250 -> $45k pre-approval; tampered $18,500 vs $12,400 -> red, UW-104; AML $1.2M loop across 4 accounts; 6.45% invoice credit line bridges a 12-day gap. Officer persona: "Alex".
+- 2026-10-14: v1 built: FastAPI app in `app/` and a 5-page SPA in `static/`, mock mode by default. 17 pytest tests pass. Run with `uvicorn app.main:app --port 8080`.
+- Fraud weights: base 0.10, new device +0.30, unusual location +0.25, velocity>2x +min(0.20, 0.04v), new payee +0.10, scam-linked payee +0.40, sender under AML investigation +0.40; hold at >=0.75. This gives 95% for the demo payment.
+- Persona switch drives every page (`SCENARIOS` in `app/data/mock_data.py`): Aarav = $48,500 new-device transfer (95%) + clean statement; Apex = $14,250 to NetCorp Billing LLC (78%) + tampered statement; AML-303 = $300k to Global Traders C (80%), no loan, coaching disabled. Feed, briefing, action order and Copilot suggestions are filtered per persona.
+- Not yet real GCP: Pub/Sub, BigQuery, Document AI and Vertex Search are in-memory stand-ins (the GCP strip shows "mock"). Only Gemini has a live path.
+- Insurance claims (R3.5) built: `app/services/claims.py`, policy CLM-POL-12. CL-5530 (Aarav) is clean: $1,850 = $1,850, payout $1,750. CL-7741 (Apex) is inflated: $175K vs $112.5K paid, edited and duplicate invoice, routed to an adjuster with payout capped at $107,500 ($67,500 avoided).
+- Command Center (v3): GCP strip, 8 KPIs, 4 action cards (REC-GROWTH = 340 SME offers, +$410K NII, revenue not savings), 4 division cards, ranked alerts, exposure table, donuts and sparklines (sample data), impact KPIs, labelled intervention markers. Driven by `/api/dashboard` and the `exposures` register in `state.py`.
+- Persona switcher has "All Banking Units" (ALL) first; customer-only actions in that view act as CUST-101. Header has search (`/api/search`), a bell that injects a fraud event, and the user chip "Alex Morgan · CRO". 30 tests pass.
+- PLANNED (not built): multi-agent system in `docs/agents-plan.md`. FinGuard Orchestrator plus FraudShieldAgent (P2), UnderwritingAgent (P3), ComplianceSARAgent (P4) and FinancialCoachAgent (P5 + Copilot), with Gemini function calling or ADK and a live Agent Execution Trace UI. `app/agents/` exists with only an `__init__.py`.
+- `./data/` holds the user's real demo dataset (see `data/readme_data.md`): AlloyDB seed (customers_accounts, verified_beneficiaries VEND-901 NetCorp …2209, loan_applications, insurance_claims, compliance_cases), 1,500-row BigQuery transactions, AML edges (EDGE-01..04, one $1.2M amount hopping 4 times with fees, ~68h), 30-day forecasts, a 25-event Pub/Sub stream, Document AI DOC-01..12, RAG chunks (RBI-KYC-24A, RBI-KYC-16C, FATF-REDFLAG-3.1, UW-POLICY-104, PROD-CATALOG-2026). The app does NOT read it yet; it uses `app/data/mock_data.py`, whose numbers differ (see agents-plan §6).
+- Open: UI redesign direction not chosen (risk ledger desk / money-flow river / case dossier).
+- Installed in `.venv` and listed in requirements.txt: google-adk 2.12.0 (chosen agent framework) and google-antigravity 0.1.22 (Antigravity SDK, listed as a reference; its role vs ADK is not decided). google-genai 2.30.1, fastapi 0.141.1 (downgraded by ADK). Root `README.md` exists with GCP services, purposes and references.
+- Planned GCP AI additions (chosen 2026-10-14, not yet verified or built): Model Armor and Sensitive Data Protection as ADK before/after callbacks shown in the trace; Vertex AI RAG Engine (KB-01..04) replacing keyword `rag.py`; Vertex AI Agent Engine to host the ADK agents; Gemini Live API (Copilot voice) and Cloud Translation (customer-facing text only). Skipped for now: AML AI.
+- Problem statement + solution received 2026-10-14.
+- Pending from user: success criteria, GCP project / Gemini key status, Gemini model choice, any further details.

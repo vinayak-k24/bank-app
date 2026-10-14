@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="snowflake-source" content="cortex-agent-authored" />
+  <title>FinGuard 360 — AI Risk, Document & Financial Copilot</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo"><span class="logo-mark">◆</span> FinGuard 360</div>
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-page="command">Command Center</button>
+      <button class="tab" data-page="payments">Live Payments &amp; Scam Guard</button>
+      <button class="tab" data-page="documents">Loan &amp; Document Desk</button>
+      <button class="tab" data-page="compliance">Compliance &amp; AML Studio</button>
+      <button class="tab" data-page="coach">Personal Financial Coach</button>
+    </nav>
+    <div class="persona">
+      <div class="search" id="searchWrap">
+        <input class="input" id="searchInput" placeholder="Search TX, case, policy, SAR…" autocomplete="off" maxlength="80" aria-label="Search" />
+        <div class="search-results hidden" id="searchResults"></div>
+      </div>
+      <span class="live-dot" title="Live"></span>
+      <select id="personaSelect" aria-label="Live persona"></select>
+      <button class="icon-btn" id="bellBtn" title="Inject live Pub/Sub fraud event">🔔<span class="notif-dot"></span></button>
+      <div class="user-chip"><span class="avatar">AM</span><span>Alex Morgan · CRO</span></div>
+      <span class="ai-mode" id="aiMode">AI: mock</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="gcp-bar" id="gcpBar"></div>
+    <div class="persona-banner" id="personaBanner"></div>
+    <!-- Page 1: Command Center -->
+    <section class="page active" id="page-command">
+      <div class="hero">
+        <div class="card">
+          <p class="muted small" id="today"></p>
+          <h1 id="greeting">Good Morning, Alex</h1>
+          <p class="muted">Your unified risk, fraud, lending, insurance and compliance view.</p>
+          <div class="row mt">
+            <button class="btn primary sm" data-goto="payments">Simulate high-risk payment</button>
+            <button class="btn sm" data-goto="documents">Verify loan or claim PDF</button>
+            <button class="btn sm" data-goto="compliance">Auto-draft SAR</button>
+            <button class="btn sm" id="resetDemo">↺ Reset demo</button>
+          </div>
+        </div>
+        <div class="card ai">
+          <div class="card-title"><span class="ai-label">✨ Gemini Morning Briefing</span>
+            <button class="btn sm" id="listenBtn">🔊 Listen to Briefing</button></div>
+          <p id="briefing" class="aitext" style="margin:0">Loading briefing…</p>
+        </div>
+      </div>
+
+      <div class="grid g-4">
+        <div class="card kpi" data-goto="payments"><div class="label">Transactions Monitored</div><div class="value" id="kpi-tx">–</div><div class="sub muted">Pub/Sub stream, last 24h</div></div>
+        <div class="card kpi" data-goto="payments"><div class="label">Fraud Blocked</div><div class="value ok" id="kpi-fraud">–</div><div class="sub muted" id="kpi-fraud-usd">–</div></div>
+        <div class="card kpi" data-goto="documents"><div class="label">Loans / Claims Pending</div><div class="value" id="kpi-loans">–</div><div class="sub muted" id="kpi-claims">Document AI queue</div></div>
+        <div class="card kpi" data-goto="compliance"><div class="label">Open AML Cases</div><div class="value bad" id="kpi-aml">–</div><div class="sub muted" id="kpi-alerts">–</div></div>
+        <div class="card kpi" data-goto="payments"><div class="label">Fraud Interception</div><div class="value ok" id="kpi-intercept">–</div><div class="sub muted">Caught before settlement</div></div>
+        <div class="card kpi" data-goto="payments"><div class="label">False Hold Hours</div><div class="value ok" id="kpi-falsehold">–</div><div class="sub muted" id="kpi-falsehold-sub">–</div></div>
+        <div class="card kpi" data-goto="payments"><div class="label">False-Positive Rate</div><div class="value ok" id="kpi-fpr">–</div><div class="sub muted" id="kpi-confirmed">Customers confirmed via OTP</div></div>
+        <div class="card kpi" data-goto="compliance"><div class="label">Compliance Score</div><div class="value ok" id="kpi-compliance">–</div><div class="sub muted">RBI / FATF audit readiness</div></div>
+      </div>
+
+      <div class="section-head mt"><h3>Strategic Recommended Actions</h3><span class="pill ai">Ranked by financial impact</span></div>
+      <div class="grid g-4" id="recs"></div>
+
+      <div class="section-head mt"><h3>Banking Division Overview</h3><span class="pill neutral">Health updates as cases close</span></div>
+      <div class="grid g-4" id="divisions"></div>
+
+      <div class="card mt">
+        <div class="card-title">Critical Alerts, Ranked by Financial Exposure <span class="pill bad" id="rankedBadge">–</span></div>
+        <div class="table-wrap"><table class="tbl" id="rankedTable"></table></div>
+      </div>
+
+      <div class="section-head mt"><h3>Portfolio Analytics</h3><span class="pill neutral" id="analyticsNote">Sample portfolio data</span></div>
+      <div class="grid g-3">
+        <div class="card"><div class="card-title">Document AI &amp; Underwriting Readiness</div><div class="donut-row" id="donutDocs"></div><div class="facts" id="docFacts"></div></div>
+        <div class="card"><div class="card-title">Compliance &amp; Investigator Readiness</div><div class="donut-row" id="donutTeam"></div><div class="card ai small" style="padding:10px;margin-top:10px" id="teamInsight"></div></div>
+        <div class="card"><div class="card-title">Ecosystem &amp; Threat Intelligence</div><div class="spark-grid" id="threats"></div></div>
+      </div>
+
+      <div class="card mt">
+        <div class="card-title">Application, Claim &amp; Transaction Exposure <span class="row"><span class="pill bad" id="exposureTotal">–</span></span></div>
+        <div class="table-wrap"><table class="tbl" id="exposureTable"></table></div>
+      </div>
+
+      <div class="card mt">
+        <div class="card-title">Executive Business &amp; Financial Impact
+          <div class="legend"><span><i style="background:#fca5a5"></i>Risk exposure</span><span><i style="background:#7c3aed"></i>AI savings</span><span><i style="background:#16a34a"></i>AI intervention</span></div>
+        </div>
+        <div class="grid impact-kpis" id="impactKpis"></div>
+        <div class="row between small muted mt"><span>USD thousands, last 12 months</span><span>Projected savings: <b class="ok" id="kpi-savings">–</b></span></div>
+        <div class="chart-box" id="savingsChart" style="height:300px"></div>
+      </div>
+    </section>
+
+    <!-- Page 2: Payments -->
+    <section class="page" id="page-payments">
+      <div class="page-head"><h1>Live Payments &amp; Scam Guard</h1><p>Behavioral risk scoring on every payment. Risky transfers are paused and confirmed, never frozen.</p></div>
+      <div class="grid split-pay">
+        <div class="stack">
+          <div class="card">
+            <div class="card-title">Payment Simulator</div>
+            <form id="payForm" class="stack">
+              <label class="field">From<input class="input" id="payFrom" disabled /></label>
+              <label class="field">Recipient<input class="input" id="payRecipient" value="Offshore Transit Ltd" list="payees" required maxlength="80" /></label>
+              <datalist id="payees"></datalist>
+              <label class="field">Amount (USD)<input class="input" id="payAmount" type="number" min="1" step="0.01" value="48500" required /></label>
+              <div class="field">Device / Location
+                <div class="seg" id="deviceSeg"><button type="button" data-v="trusted">Trusted device</button><button type="button" data-v="new" class="on">New device</button></div>
+              </div>
+              <button class="btn primary" type="submit" id="sendBtn">Send Live Payment</button>
+            </form>
+          </div>
+          <div class="card ai">
+            <div class="card-title"><span class="ai-label">✨ Multimodal Scam Scanner</span><span class="pill ai">Gemini Vision</span></div>
+            <div class="dropzone" id="dropzone">Drop an invoice image/PDF here or click to choose<input type="file" id="scanFile" accept="application/pdf,image/png,image/jpeg,image/webp" hidden /></div>
+            <button class="btn ai-btn mt" id="scanBtn" style="width:100%;justify-content:center">Scan Suspicious Invoice</button>
+            <div id="scanResult" class="mt"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Live Incoming Transaction Stream <span class="pill neutral" id="streamStatus">● streaming</span></div>
+          <div id="holdBox"></div>
+          <div class="feed" id="feed"><div class="empty">Waiting for transactions…</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page 3: Documents -->
+    <section class="page" id="page-documents">
+      <div class="page-head"><h1>Loan, Claim &amp; Document Desk</h1><p>Document AI reads statements and claim invoices in seconds and checks them against the real ledger.</p></div>
+      <div class="stepper" id="stepper">
+        <div class="step" data-step="0"><span class="n">1</span>Upload</div>
+        <div class="step" data-step="1"><span class="n">2</span>Document AI Parse</div>
+        <div class="step" data-step="2"><span class="n">3</span>Ledger Check</div>
+        <div class="step" data-step="3"><span class="n">4</span>Decision</div>
+      </div>
+      <div class="card soft">
+        <div class="row between">
+          <div class="row">
+            <button class="btn primary" id="docClean">Upload Clean Bank Statement</button>
+            <button class="btn" id="docTampered">Upload Tampered Bank Statement</button>
+            <span class="muted small">Insurance:</span>
+            <button class="btn" id="claimClean">Clean Claim (CL-5530)</button>
+            <button class="btn" id="claimInflated">Inflated Claim (CL-7741)</button>
+            <label class="btn" for="docFile">Choose PDF…</label>
+            <input type="file" id="docFile" accept="application/pdf,image/png,image/jpeg" hidden />
+          </div>
+          <span class="muted small" id="docHint">Or drag a PDF onto the preview.</span>
+        </div>
+      </div>
+      <div class="grid split-3 mt">
+        <div class="card"><div class="card-title">Document Preview <span class="muted small" id="docName"></span></div><div id="docPreview" class="pdf"><div class="empty">No document uploaded</div></div></div>
+        <div class="card"><div class="card-title">Extracted Fields <span class="pill neutral">Document AI</span></div><div class="fields" id="docFields"><div class="empty">—</div></div><div id="docSignals" class="mt"></div></div>
+        <div class="card"><div class="card-title">BigQuery Match Verdict</div><div id="docVerdict"><div class="empty">—</div></div></div>
+      </div>
+      <div id="offerBox" class="mt"></div>
+    </section>
+
+    <!-- Page 4: Compliance -->
+    <section class="page" id="page-compliance">
+      <div class="page-head row between">
+        <div><h1>Compliance &amp; AML Studio</h1><p>Trace money flows, cite the exact rule, and get a SAR ready for sign-off.</p></div>
+        <div class="row">
+          <select class="input" id="caseSelect" style="width:auto"><option value="AM-89412">Case #AM-89412 — Shell Co. A</option></select>
+          <button class="btn primary" id="traceBtn">Trace Money Flow</button>
+        </div>
+      </div>
+      <div class="alert warn small" id="amlNote" style="margin-bottom:16px"></div>
+      <div class="grid split-aml">
+        <div class="card"><div class="card-title">Account Network Map <span class="muted small" id="traceMeta"></span></div><svg class="netmap" id="netmap" viewBox="0 0 420 380"></svg><div id="traceSummary"></div></div>
+        <div class="card"><div class="card-title">Matched RBI &amp; FATF Policies <span class="pill neutral">Vertex AI Search</span></div><div class="stack" id="policies"><div class="empty">Trace the case to match policies.</div></div></div>
+        <div class="card">
+          <div class="card-title">Suspicious Activity Report <span class="pill neutral" id="sarStatus">not started</span></div>
+          <div class="row" style="margin-bottom:10px">
+            <button class="btn ai-btn" id="draftSarBtn">✨ Auto-Draft SAR with Gemini</button>
+            <button class="btn danger" id="submitSarBtn" disabled>Freeze Accounts &amp; Submit SAR</button>
+          </div>
+          <div class="toolbar"><button data-cmd="bold"><b>B</b></button><button data-cmd="italic"><i>I</i></button><button data-cmd="underline"><u>U</u></button><button data-cmd="insertUnorderedList">• List</button></div>
+          <div class="editor" id="sarEditor" contenteditable="true" spellcheck="true" aria-label="SAR editor"></div>
+          <p class="small muted">Draft only. Filing requires officer sign-off.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page 5: Coach -->
+    <section class="page" id="page-coach">
+      <div class="page-head"><h1>Personal Financial Coach</h1><p>See tomorrow's risks, not just yesterday's balance.</p></div>
+      <div id="coachUnavailable" class="alert warn hidden"></div>
+      <div id="coachBody">
+        <div class="grid g-3">
+          <div class="card"><div class="label muted small">Smart Wallet Balance</div><div style="font-size:30px;font-weight:700" id="walletBal">–</div><div class="small muted" id="walletName"></div></div>
+          <div class="card ai" style="grid-column: span 2"><span class="ai-label">✨ Vertex AI Forecast</span><p id="dipText" class="aitext" style="margin:6px 0 0">–</p></div>
+        </div>
+        <div class="card mt">
+          <div class="card-title">30-Day Cash-Flow Forecast
+            <div class="legend"><span><i style="background:#2563eb"></i>Actual</span><span><i style="background:#7c3aed"></i>Vertex AI prediction</span><span><i style="background:#dc2626"></i>Low-balance zone</span></div>
+          </div>
+          <div class="chart-box" id="forecastChart" style="height:300px"></div>
+          <div class="grid g-2 mt">
+            <label class="field">What-if: client invoice delayed by <b id="delayVal">0 days</b><input type="range" id="delaySlider" min="0" max="20" value="0" /></label>
+            <label class="field">What-if: unexpected expense <b id="expenseVal">$0</b><input type="range" id="expenseSlider" min="0" max="10000" step="250" value="0" /></label>
+          </div>
+        </div>
+        <h3 class="mt" style="margin-bottom:10px">Recommended for you</h3>
+        <div class="grid g-2" id="products"></div>
+        <div id="eligibilityBox" class="mt"></div>
+      </div>
+    </section>
+  </main>
+
+  <button class="fab" id="copilotFab">✨ FinGuard Copilot</button>
+  <aside class="drawer" id="drawer" aria-label="FinGuard Copilot">
+    <header><div><b class="aitext">✨ FinGuard Copilot</b><div class="small muted" id="copilotCtx">Context: Command Center</div></div><button class="btn sm" id="closeDrawer">✕</button></header>
+    <div class="chat" id="chat"><div class="msg bot">Hi Alex, I can explain any alert, policy or forecast on this screen. Pick a suggestion or ask me anything.</div></div>
+    <div class="chips" id="chips"></div>
+    <form id="chatForm"><input class="input" id="chatInput" placeholder="Ask Copilot…" maxlength="2000" autocomplete="off" /><button class="btn ai-btn" type="submit">Send</button></form>
+  </aside>
+  <div class="toast" id="toast"></div>
+
+  <script src="/static/charts.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

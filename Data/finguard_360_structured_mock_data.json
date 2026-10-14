@@ -1,0 +1,515 @@
+{
+  "metadata": {
+    "project": "FinGuard 360 \u2014 Intelligent Risk, Fraud & Financial Experiences",
+    "generated_at": "2026-10-14T12:35:00+05:30",
+    "target_services": [
+      "Cloud SQL / AlloyDB",
+      "Cloud Pub/Sub",
+      "BigQuery",
+      "Vertex AI Predictive ML",
+      "Document AI",
+      "Vertex AI Search (RAG)",
+      "Gemini 2.5 Pro & Flash on Vertex AI"
+    ]
+  },
+  "customers_and_accounts": [
+    {
+      "customer_id": "CUST-101",
+      "full_name": "Aarav Sharma",
+      "entity_type": "RETAIL_FREELANCE",
+      "segment": "Retail & Freelance UX Consultant",
+      "account_number": "AC-8840192011",
+      "ifsc_routing": "FING0001024",
+      "pan_tax_id": "ABCPS4921K",
+      "email": "aarav.sharma@designstudio.in",
+      "phone": "+91-98201-44910",
+      "city": "Mumbai",
+      "current_balance_usd": 128450.0,
+      "verified_monthly_inflow_usd": 14250.0,
+      "avg_monthly_outflow_usd": 9500.0,
+      "dti_ratio_pct": 18.4,
+      "credit_score": 782,
+      "risk_tier": "LOW",
+      "kyc_status": "VERIFIED",
+      "predicted_30d_low_balance_usd": 124250.0,
+      "predicted_30d_cashflow_dip_usd": -4200.0,
+      "cashflow_dip_date": "2026-10-26",
+      "cashflow_dip_reason": "Delayed $6,500 milestone invoice from Fintech Labs combined with quarterly tax advance and workspace rent",
+      "eligible_product_ids": [
+        "PROD-INV-FIN-01",
+        "PROD-RESERVE-02",
+        "PROD-SHIELD-03"
+      ]
+    },
+    {
+      "customer_id": "SME-202",
+      "full_name": "Apex Manufacturing Pvt Ltd",
+      "entity_type": "SME_CORPORATE",
+      "segment": "SME Commercial Lending (Auto Components)",
+      "account_number": "AC-5520918442",
+      "ifsc_routing": "FING0002088",
+      "pan_tax_id": "AABCA8841M",
+      "authorized_rep": "Rajesh Mehta (Managing Director)",
+      "email": "finance@apexmfg-pune.in",
+      "phone": "+91-98230-77120",
+      "city": "Pune",
+      "current_balance_usd": 84300.0,
+      "verified_monthly_inflow_usd": 12400.0,
+      "pdf_declared_monthly_inflow_usd": 18500.0,
+      "inflow_discrepancy_pct": 49.19,
+      "avg_monthly_outflow_usd": 10333.33,
+      "dti_ratio_pct": 44.2,
+      "credit_score": 665,
+      "risk_tier": "HIGH_WATCH_DISCREPANCY",
+      "kyc_status": "STEP_UP_REQUIRED",
+      "predicted_30d_low_balance_usd": 69800.0,
+      "predicted_30d_cashflow_dip_usd": -14500.0,
+      "cashflow_dip_date": "2026-11-02",
+      "cashflow_dip_reason": "Raw steel coil settlement and monthly factory payroll batch",
+      "eligible_product_ids": []
+    },
+    {
+      "customer_id": "INS-404",
+      "full_name": "Priya Nair",
+      "entity_type": "RETAIL_POLICYHOLDER",
+      "segment": "Retail Banking & Digital Insurance",
+      "account_number": "AC-3310498210",
+      "ifsc_routing": "FING0001024",
+      "pan_tax_id": "AKLPN7732F",
+      "email": "priya.nair@techmail.in",
+      "phone": "+91-98450-33219",
+      "city": "Bengaluru",
+      "current_balance_usd": 19200.0,
+      "verified_monthly_inflow_usd": 6800.0,
+      "avg_monthly_outflow_usd": 4900.0,
+      "dti_ratio_pct": 24.0,
+      "credit_score": 748,
+      "risk_tier": "MEDIUM_CLAIM_AUDIT",
+      "kyc_status": "VERIFIED",
+      "predicted_30d_low_balance_usd": 16400.0,
+      "predicted_30d_cashflow_dip_usd": -2800.0,
+      "cashflow_dip_date": "2026-10-22",
+      "cashflow_dip_reason": "Hospital out-of-pocket deductible before claim settlement",
+      "eligible_product_ids": [
+        "PROD-INV-FIN-01"
+      ]
+    },
+    {
+      "customer_id": "AML-301",
+      "full_name": "Zenith Imports LLP (Shell Co. A)",
+      "entity_type": "SHELL_ENTITY",
+      "segment": "Cross-Border Trade & Treasury",
+      "account_number": "AC-9900112201",
+      "ifsc_routing": "FING0009901",
+      "pan_tax_id": "AAACZ1001A",
+      "city": "GIFT City / Offshore",
+      "current_balance_usd": 1200000.0,
+      "verified_monthly_inflow_usd": 95000.0,
+      "avg_monthly_outflow_usd": 92000.0,
+      "dti_ratio_pct": 12.0,
+      "credit_score": 610,
+      "risk_tier": "CRITICAL_AML_RING",
+      "kyc_status": "FROZEN_PENDING_SAR",
+      "aml_case_id": "AM-89412"
+    },
+    {
+      "customer_id": "AML-302",
+      "full_name": "Nova Logistics Pvt Ltd (Transit B)",
+      "entity_type": "SHELL_ENTITY",
+      "segment": "Cross-Border Trade & Treasury",
+      "account_number": "AC-9900112202",
+      "ifsc_routing": "FING0009901",
+      "pan_tax_id": "AAACN1002B",
+      "city": "Mumbai",
+      "current_balance_usd": 310000.0,
+      "verified_monthly_inflow_usd": 40000.0,
+      "avg_monthly_outflow_usd": 39500.0,
+      "risk_tier": "CRITICAL_AML_RING",
+      "kyc_status": "FROZEN_PENDING_SAR",
+      "aml_case_id": "AM-89412"
+    },
+    {
+      "customer_id": "AML-303",
+      "full_name": "Pacific Exim Corp (Global Traders C)",
+      "entity_type": "SHELL_ENTITY",
+      "segment": "Cross-Border Trade & Treasury",
+      "account_number": "AC-9900112203",
+      "ifsc_routing": "FING0009901",
+      "pan_tax_id": "AAACP1003C",
+      "city": "Chennai",
+      "current_balance_usd": 285000.0,
+      "verified_monthly_inflow_usd": 52000.0,
+      "avg_monthly_outflow_usd": 51000.0,
+      "risk_tier": "CRITICAL_AML_RING",
+      "kyc_status": "FROZEN_PENDING_SAR",
+      "aml_case_id": "AM-89412"
+    },
+    {
+      "customer_id": "AML-304",
+      "full_name": "Meridian Ventures Holding (Holding Co. D)",
+      "entity_type": "SHELL_ENTITY",
+      "segment": "Cross-Border Trade & Treasury",
+      "account_number": "AC-9900112204",
+      "ifsc_routing": "FING0009901",
+      "pan_tax_id": "AAACM1004D",
+      "city": "Delhi NCR",
+      "current_balance_usd": 405000.0,
+      "verified_monthly_inflow_usd": 30000.0,
+      "avg_monthly_outflow_usd": 29800.0,
+      "risk_tier": "CRITICAL_AML_RING",
+      "kyc_status": "FROZEN_PENDING_SAR",
+      "aml_case_id": "AM-89412"
+    }
+  ],
+  "verified_beneficiaries": [
+    {
+      "beneficiary_id": "VEND-901",
+      "owner_customer_id": "CUST-101",
+      "vendor_legal_name": "NetCorp Cloud Services LLC",
+      "verified_email_domain": "netcorp.com",
+      "verified_billing_email": "billing@netcorp.com",
+      "verified_account_number": "AC-7700222209",
+      "account_last4": "2209",
+      "verified_ifsc_routing": "FING0004400",
+      "historical_monthly_payment_usd": 2450.0,
+      "trust_status": "VERIFIED_WHITELISTED"
+    },
+    {
+      "beneficiary_id": "VEND-902",
+      "owner_customer_id": "SME-202",
+      "vendor_legal_name": "Jindal Steel Raw Coils Ltd",
+      "verified_email_domain": "jindalsteel.com",
+      "verified_billing_email": "ar@jindalsteel.com",
+      "verified_account_number": "AC-4400881120",
+      "account_last4": "1120",
+      "verified_ifsc_routing": "FING0003100",
+      "historical_monthly_payment_usd": 3800.0,
+      "trust_status": "VERIFIED_WHITELISTED"
+    }
+  ],
+  "document_ai_extracted_payloads": {
+    "DOC-01": {
+      "doc_id": "DOC-01",
+      "filename": "doc-01-aarav-sharma-clean-bank-statement.pdf",
+      "customer_id": "CUST-101",
+      "processor": "BANK_STATEMENT_PARSER",
+      "page_count": 5,
+      "physical_condition": "CLEAN_DIGITAL_PDF",
+      "ocr_confidence": 0.998,
+      "extracted_fields": {
+        "account_holder": "Aarav Sharma",
+        "account_number": "AC-8840192011",
+        "ifsc_code": "FING0001024",
+        "pan_number": "ABCPS4921K",
+        "statement_period": "01 Jul 2026 to 30 Sep 2026",
+        "opening_balance_usd": 114200.0,
+        "closing_balance_usd": 128450.0,
+        "total_90d_inflows_usd": 42750.0,
+        "total_90d_outflows_usd": 28500.0,
+        "average_monthly_inflow_usd": 14250.0,
+        "overdraft_events": 0
+      },
+      "bigquery_reconciliation": {
+        "bq_verified_monthly_inflow_usd": 14250.0,
+        "variance_usd": 0.0,
+        "variance_pct": 0.0,
+        "status": "EXACT_MATCH_VERIFIED",
+        "policy_triggered": "UW-104.1 (Instant Pre-Approval Unlocked: $45,000 @ 6.45% APR)"
+      }
+    },
+    "DOC-02": {
+      "doc_id": "DOC-02",
+      "filename": "doc-02-apex-manufacturing-tampered-xerox-bank-statement.pdf",
+      "customer_id": "SME-202",
+      "processor": "BANK_STATEMENT_PARSER",
+      "page_count": 6,
+      "physical_condition": "DEGRADED_XEROX_200DPI_STAMPED",
+      "ocr_confidence": 0.942,
+      "extracted_fields": {
+        "account_holder": "Apex Manufacturing Pvt Ltd",
+        "account_number": "AC-5520918442",
+        "ifsc_code": "FING0002088",
+        "pan_number": "AABCA8841M",
+        "statement_period": "01 Jul 2026 to 30 Sep 2026",
+        "opening_balance_usd": 78100.0,
+        "closing_balance_usd": 84300.0,
+        "page_6_summary_declared_quarterly_inflows_usd": 55500.0,
+        "page_6_summary_declared_monthly_inflow_usd": 18500.0,
+        "pages_1_to_5_itemized_credit_sum_usd": 37200.0,
+        "overdraft_events": 1
+      },
+      "visual_tamper_signals": [
+        "Page 6 summary row exhibits font family mismatch (Arial Black 13pt vs Courier 10pt on Pages 1-5)",
+        "2px vertical baseline shift and white rectangular background patch detected on Page 6 summary figure ($18,500.00)",
+        "Internal math conflict: Page 1-5 credit rows sum to $37,200.00 ($12,400/mo), contradicting Page 6 summary of $55,500.00 ($18,500/mo)"
+      ],
+      "bigquery_reconciliation": {
+        "bq_verified_monthly_inflow_usd": 12400.0,
+        "variance_usd": 6100.0,
+        "variance_pct": 49.19,
+        "status": "CRITICAL_DISCREPANCY_HOLD",
+        "policy_triggered": "UW-104.2 (Variance >15% + Font Tampering -> Auto-Approval Blocked; Step-Up GST/ITR Required)"
+      }
+    },
+    "DOC-03": {
+      "doc_id": "DOC-03",
+      "filename": "doc-03-apex-handwritten-loan-application.pdf",
+      "customer_id": "SME-202",
+      "processor": "CUSTOM_FORM_HANDWRITING_EXTRACTOR",
+      "page_count": 3,
+      "physical_condition": "HANDWRITTEN_BLUE_INK_FORM",
+      "ocr_confidence": 0.918,
+      "extracted_fields": {
+        "applicant_entity": "Apex Manufacturing Pvt Ltd",
+        "requested_loan_amount_usd": 250000.0,
+        "tenure_months": 36,
+        "purpose": "Purchase of 2 High-Speed CNC Lathe Machines",
+        "declared_monthly_deposits_usd": 18500.0,
+        "crossed_out_annual_turnover_usd": 150000.0,
+        "rewritten_annual_turnover_usd": 220000.0,
+        "correction_initials": "R.M.",
+        "declared_operational_cnc_machines": 4
+      }
+    },
+    "DOC-07": {
+      "doc_id": "DOC-07",
+      "filename": "doc-07-netcorp-spoofed-scam-invoice-2p.pdf",
+      "customer_id": "CUST-101",
+      "processor": "INVOICE_PARSER_PLUS_GEMINI_VISION",
+      "page_count": 2,
+      "physical_condition": "PIXELATED_RESAVED_PDF_RED_STAMP",
+      "ocr_confidence": 0.976,
+      "extracted_fields": {
+        "invoice_number": "INV-2026-992",
+        "vendor_name_on_doc": "NetCorp Billing LLC",
+        "sender_email": "accounts@netcorp-pay.co",
+        "invoice_total_usd": 14250.0,
+        "beneficiary_account_on_doc": "AC-7700998841",
+        "beneficiary_last4_on_doc": "8841",
+        "routing_code_on_doc": "OFFSHORE-99"
+      },
+      "scam_shield_verdict": {
+        "scam_probability": 0.94,
+        "risk_level": "CRITICAL_APP_SCAM",
+        "red_flags": [
+          "Beneficiary account ending '8841' conflicts with AlloyDB whitelisted account '2209' for NetCorp Cloud Services LLC",
+          "Lookalike sender domain '@netcorp-pay.co' registered 4 days ago (official domain is '@netcorp.com')",
+          "High-pressure social-engineering red stamp demanding immediate payment without voice verification"
+        ],
+        "recommended_action": "BLOCK_PAYMENT_AND_ALERT_CUSTOMER"
+      }
+    },
+    "DOC-09": {
+      "doc_id": "DOC-09",
+      "filename": "doc-09-priya-nair-mixed-medical-claim-7p.pdf",
+      "customer_id": "INS-404",
+      "processor": "MEDICAL_CLAIM_EXTRACTOR",
+      "page_count": 7,
+      "physical_condition": "MIXED_PRINTED_HANDWRITTEN_THERMAL_XEROX",
+      "ocr_confidence": 0.934,
+      "extracted_fields": {
+        "patient_name": "Priya Nair",
+        "policy_number": "POL-884120",
+        "hospital_name": "Metro Care Multi-Specialty Hospital",
+        "page_4_doctor_handwritten_note": "Post-op stable, vitals normal, 1x Titanium Orthopedic Implant Batch #TK99 fixed",
+        "page_7_total_claimed_usd": 11450.0,
+        "duplicate_line_items_detected": [
+          {
+            "line_no": 14,
+            "date": "2026-10-03",
+            "description": "Titanium Orthopedic Implant Kit (Batch #TK99)",
+            "amount_usd": 3200.0
+          },
+          {
+            "line_no": 19,
+            "date": "2026-10-05",
+            "description": "Ortho Surgical Implant Set (Batch #TK99)",
+            "amount_usd": 3200.0
+          }
+        ],
+        "adjusted_approved_payout_usd": 7750.0
+      }
+    },
+    "DOC-12": {
+      "doc_id": "DOC-12",
+      "filename": "doc-12-apex-handwritten-field-inspection-5p.pdf",
+      "customer_id": "SME-202",
+      "processor": "CUSTOM_FORM_HANDWRITING_EXTRACTOR",
+      "page_count": 5,
+      "physical_condition": "HANDWRITTEN_CLIPBOARD_CHECKLIST",
+      "ocr_confidence": 0.925,
+      "extracted_fields": {
+        "inspector_name": "V. Deshmukh",
+        "inspection_date": "2026-10-12",
+        "declared_cnc_machines": 4,
+        "physically_verified_cnc_machines": 2,
+        "handwritten_margin_finding": "Borrower declared 4 operational CNC machines in application, but only 2 machines are physically present on shop floor; Bays 3 and 4 are empty.",
+        "inspector_recommendation": "HOLD_DISBURSAL"
+      }
+    }
+  },
+  "aml_network_case": {
+    "case_id": "AM-89412",
+    "status": "ACTIVE_INVESTIGATION",
+    "vertex_ai_ring_score": 0.964,
+    "total_circular_volume_usd": 1200000.0,
+    "duration_hours": 68,
+    "nodes": [
+      {
+        "id": "AML-301",
+        "label": "Shell Co. A (Zenith Imports)",
+        "account": "AC-9900112201",
+        "jurisdiction": "GIFT City",
+        "role": "Originator & Final Recipient"
+      },
+      {
+        "id": "AML-302",
+        "label": "Transit Account B (Nova Logistics)",
+        "account": "AC-9900112202",
+        "jurisdiction": "Mumbai",
+        "role": "Layering Hop 1"
+      },
+      {
+        "id": "AML-303",
+        "label": "Global Traders C (Pacific Exim)",
+        "account": "AC-9900112203",
+        "jurisdiction": "Chennai",
+        "role": "Layering Hop 2"
+      },
+      {
+        "id": "AML-304",
+        "label": "Holding Co. D (Meridian Ventures)",
+        "account": "AC-9900112204",
+        "jurisdiction": "Delhi NCR",
+        "role": "Round-Trip Return Node"
+      }
+    ],
+    "edges": [
+      {
+        "tx_id": "TX-9901",
+        "from": "AML-301",
+        "to": "AML-302",
+        "amount_usd": 1200000.0,
+        "timestamp": "2026-10-11T09:15:00Z",
+        "memo": "Software Modules Lot A (DOC-11 p.1)"
+      },
+      {
+        "tx_id": "TX-9902",
+        "from": "AML-302",
+        "to": "AML-303",
+        "amount_usd": 1195000.0,
+        "timestamp": "2026-10-11T23:10:00Z",
+        "memo": "Software Modules Lot A (DOC-11 p.3)"
+      },
+      {
+        "tx_id": "TX-9903",
+        "from": "AML-303",
+        "to": "AML-304",
+        "amount_usd": 1190000.0,
+        "timestamp": "2026-10-12T23:40:00Z",
+        "memo": "Software Modules Lot A - No Customs Stamp (DOC-11 p.5)"
+      },
+      {
+        "tx_id": "TX-9904",
+        "from": "AML-304",
+        "to": "AML-301",
+        "amount_usd": 1185000.0,
+        "timestamp": "2026-10-14T05:12:00Z",
+        "memo": "Software Modules Lot A Round-Trip (DOC-11 p.7)"
+      }
+    ]
+  },
+  "pubsub_streaming_events": [
+    {
+      "event_id": "EVT-1001",
+      "timestamp": "2026-10-14T12:30:05Z",
+      "customer_id": "CUST-101",
+      "customer_name": "Aarav Sharma",
+      "tx_type": "WIRE_NEFT",
+      "recipient_name": "Offshore Transit Ltd (Unverified)",
+      "recipient_account": "AC-7700998841",
+      "amount_usd": 48500.0,
+      "device_id": "DEV-UNKNOWN-99",
+      "device_trust_score": 0.18,
+      "ip_country": "RO",
+      "geo_mismatch": true,
+      "velocity_24h_ratio": 4.2,
+      "vertex_ai_fraud_score": 0.95,
+      "action": "HELD_FOR_STEP_UP",
+      "reason": "Amount is 4.2x 30-day average from unrecognized foreign IP/device"
+    },
+    {
+      "event_id": "EVT-1002",
+      "timestamp": "2026-10-14T12:31:10Z",
+      "customer_id": "CUST-101",
+      "customer_name": "Aarav Sharma",
+      "tx_type": "ACH_DR",
+      "recipient_name": "NetCorp Cloud Services LLC",
+      "recipient_account": "AC-7700222209",
+      "amount_usd": 2450.0,
+      "device_id": "DEV-MACBOOK-AARAV",
+      "device_trust_score": 0.99,
+      "ip_country": "IN",
+      "geo_mismatch": false,
+      "velocity_24h_ratio": 1.0,
+      "vertex_ai_fraud_score": 0.04,
+      "action": "AUTO_APPROVED",
+      "reason": "Matches whitelisted beneficiary AC..2209 and historical monthly pattern"
+    },
+    {
+      "event_id": "EVT-1003",
+      "timestamp": "2026-10-14T12:32:45Z",
+      "customer_id": "AML-304",
+      "customer_name": "Meridian Ventures Holding",
+      "tx_type": "SWIFT_INTL",
+      "recipient_name": "Zenith Imports LLP (Shell Co. A)",
+      "recipient_account": "AC-9900112201",
+      "amount_usd": 1185000.0,
+      "device_id": "DEV-PROXY-TOR-04",
+      "device_trust_score": 0.11,
+      "ip_country": "GB",
+      "geo_mismatch": true,
+      "velocity_24h_ratio": 6.8,
+      "vertex_ai_fraud_score": 0.96,
+      "action": "RING_FROZEN_SAR_DRAFTED",
+      "reason": "Completes 4-hop circular loop (#AM-89412) violating RBI KYC Sec 24(a) & FATF 3.1"
+    }
+  ],
+  "vertex_ai_search_rag_chunks": [
+    {
+      "chunk_id": "RBI-KYC-24A",
+      "source_doc": "KB-01: RBI Master Direction on KYC & Transaction Monitoring",
+      "section": "Section 24(a) & 24(b)",
+      "title": "Circular & Rapid Multi-Hop Fund Transfers (STR/SAR Mandate)",
+      "text": "Regulated Entities must flag accounts where funds exceeding $100,000 cycle through 3 or more connected entities within 72 hours without verified trade or customs documentation. Confirmed circular layering rings require an immediate temporary debit freeze and electronic Suspicious Activity Report (SAR) submission within 7 days."
+    },
+    {
+      "chunk_id": "RBI-KYC-16C",
+      "source_doc": "KB-01: RBI Master Direction on KYC & Transaction Monitoring",
+      "section": "Section 16(c)",
+      "title": "Enhanced Due Diligence for Photocopied (Xerox) or Altered Documents",
+      "text": "When customer onboarding or credit underwriting relies on photocopied (Xerox) statements exhibiting paste-over patches, font mismatches, or strike-through alterations, automated approval must be paused for Video-CIP and independent GST/Tax verification."
+    },
+    {
+      "chunk_id": "FATF-REDFLAG-3.1",
+      "source_doc": "KB-02: FATF Anti-Money Laundering Red Flag Indicators",
+      "section": "Indicator 3.1 & 4.2",
+      "title": "Shell Company Round-Tripping & Cloned Boilerplate Trade Invoices",
+      "text": "High-value funds transferred in a closed loop (Entity A -> B -> C -> D -> A) with <2% fee deduction at each hop and supported by identically formatted invoices ('Consulting Modules') or blank shipping weights/customs stamps indicate trade-based money laundering."
+    },
+    {
+      "chunk_id": "UW-POLICY-104",
+      "source_doc": "KB-03: FinGuard Credit & Claims Underwriting Policy Manual",
+      "section": "Clause UW-104.1, UW-104.2 & CLM-208.4",
+      "title": "Income Discrepancy Hold (>15% Variance) & Claim Deduplication",
+      "text": "Loans up to $50,000 qualify for instant pre-approval (6.45% APR) if Document AI confidence >95% and PDF deposits match BigQuery ledgers within +-5%. If PDF declared income diverges from BigQuery ledgers by >15% or field inspection (DOC-12) reports missing collateral, block auto-approval. For medical claims, deduct duplicate implant batch numbers (Batch #TK99)."
+    },
+    {
+      "chunk_id": "PROD-CATALOG-2026",
+      "source_doc": "KB-04: FinGuard 360 Official Financial Product Catalog",
+      "section": "Active Retail & SME Offers",
+      "title": "Pre-Qualified Financial Products (Invoice Credit, Treasury Sweep, Scam Shield)",
+      "text": "1. PROD-INV-FIN-01 (Smart Invoice Credit Line): Up to $45,000 @ 6.45% APR, $0 fee for customers with >=$10,000/mo verified inflows facing a 7-30 day liquidity dip. 2. PROD-RESERVE-02 (High-Yield Treasury Sweep): 4.85% APY on idle balances >$50,000. 3. PROD-SHIELD-03 (APP Scam Micro-Insurance): $50,000 spoofed invoice coverage at $12/month."
+    }
+  ]
+}

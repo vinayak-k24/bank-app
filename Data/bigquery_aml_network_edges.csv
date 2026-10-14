@@ -1,0 +1,7 @@
+edge_id,case_id,source_entity_id,source_name,source_account,target_entity_id,target_name,target_account,tx_id,tx_timestamp,amount_usd,fee_deducted_usd,hop_sequence,supporting_doc_ref,customs_stamp_present,shipping_weight_kg,is_circular_laundering
+EDGE-01,AM-89412,AML-301,Zenith Imports LLP (Shell Co. A),AC-9900112201,AML-302,Nova Logistics Pvt Ltd (Transit B),AC-9900112202,TX-9901,2026-10-11T09:15:00Z,1200000.0,0.0,1,DOC-11 (Pages 1-2),False,0.0,1
+EDGE-02,AM-89412,AML-302,Nova Logistics Pvt Ltd (Transit B),AC-9900112202,AML-303,Pacific Exim Corp (Global Traders C),AC-9900112203,TX-9902,2026-10-11T23:10:00Z,1195000.0,5000.0,2,DOC-11 (Pages 3-4),False,0.0,1
+EDGE-03,AM-89412,AML-303,Pacific Exim Corp (Global Traders C),AC-9900112203,AML-304,Meridian Ventures Holding (Holding Co. D),AC-9900112204,TX-9903,2026-10-12T23:40:00Z,1190000.0,5000.0,3,DOC-11 (Pages 5-6),False,0.0,1
+EDGE-04,AM-89412,AML-304,Meridian Ventures Holding (Holding Co. D),AC-9900112204,AML-301,Zenith Imports LLP (Shell Co. A),AC-9900112201,TX-9904,2026-10-14T05:12:00Z,1185000.0,5000.0,4,DOC-11 (Pages 7-8),False,0.0,1
+EDGE-05,NORMAL-B2B,CUST-101,Aarav Sharma,AC-8840192011,VEND-901,NetCorp Cloud Services LLC,AC-7700222209,TX-10008,2026-09-09T11:20:00Z,2450.0,0.0,1,DOC-06,True,0.0,0
+EDGE-06,NORMAL-B2B,SME-202,Apex Manufacturing Pvt Ltd,AC-5520918442,VEND-902,Jindal Steel Raw Coils Ltd,AC-4400881120,TX-10019,2026-09-14T14:10:00Z,3800.0,0.0,1,DOC-02 (Page 1),True,4200.0,0

@@ -1,0 +1,296 @@
+{
+  "DOC-01": {
+    "doc_code": "DOC-01",
+    "filename": "doc-01-aarav-sharma-clean-bank-statement.pdf",
+    "target_entity_id": "CUST-101",
+    "document_ai_processor": "BANK_STATEMENT_PARSER",
+    "page_count": 5,
+    "visual_style": "CLEAN_DIGITAL_LASER_PRINT",
+    "ocr_confidence": 0.998,
+    "extracted_entities": {
+      "account_holder": "Aarav Sharma",
+      "account_number": "AC-8840192011",
+      "ifsc": "FING0001024",
+      "pan": "ABCPS4921K",
+      "opening_balance_usd": 114200.0,
+      "closing_balance_usd": 128450.0,
+      "quarterly_inflows_usd": 42750.0,
+      "verified_monthly_average_usd": 14250.0,
+      "overdraft_count": 0
+    },
+    "verification_outcome": "VERIFIED_100_PCT_MATCH_WITH_BIGQUERY"
+  },
+  "DOC-02": {
+    "doc_code": "DOC-02",
+    "filename": "doc-02-apex-manufacturing-tampered-xerox-bank-statement.pdf",
+    "target_entity_id": "SME-202",
+    "document_ai_processor": "BANK_STATEMENT_PARSER",
+    "page_count": 6,
+    "visual_style": "DEGRADED_XEROX_200DPI_WITH_STAMP_AND_FONT_PATCH",
+    "ocr_confidence": 0.941,
+    "extracted_entities": {
+      "account_holder": "Apex Manufacturing Pvt Ltd",
+      "account_number": "AC-5520918442",
+      "ifsc": "FING0002088",
+      "pan": "AABCA8841M",
+      "opening_balance_usd": 78100.0,
+      "closing_balance_usd": 84300.0,
+      "page_1_to_5_true_credit_sum_usd": 37200.0,
+      "page_6_doctored_quarterly_inflow_usd": 55500.0,
+      "page_6_doctored_monthly_average_usd": 18500.0,
+      "overdraft_count": 1
+    },
+    "tamper_and_discrepancy_flags": [
+      "Page 6 'Average Monthly Credit Inflow ($18,500.00)' diverges from BigQuery ledger ($12,400.00) by +49.19%",
+      "Page 6 font family (Arial Black 13pt) and white paste-over bounding box conflict with Pages 1-5 Courier 10pt typography"
+    ],
+    "verification_outcome": "BLOCKED_DISCREPANCY_HOLD_UW_104_2"
+  },
+  "DOC-03": {
+    "doc_code": "DOC-03",
+    "filename": "doc-03-apex-handwritten-loan-application.pdf",
+    "target_entity_id": "SME-202",
+    "document_ai_processor": "CUSTOM_HANDWRITING_FORM_EXTRACTOR",
+    "page_count": 3,
+    "visual_style": "HANDWRITTEN_BLUE_BALLPOINT_PEN_ON_CREAM_FORM",
+    "ocr_confidence": 0.918,
+    "extracted_entities": {
+      "applicant_name": "Apex Manufacturing Pvt Ltd",
+      "loan_amount_requested_usd": 250000.0,
+      "tenure_months": 36,
+      "declared_monthly_deposits_usd": 18500.0,
+      "struck_through_turnover_usd": 150000.0,
+      "rewritten_turnover_usd": 220000.0,
+      "margin_initials": "R.M.",
+      "signatory": "Rajesh Mehta"
+    },
+    "verification_outcome": "FLAGGED_HANDWRITTEN_ALTERATION_AND_INCOME_MISMATCH"
+  },
+  "DOC-04": {
+    "doc_code": "DOC-04",
+    "filename": "doc-04-apex-xerox-kyc-incorporation-pack-4p.pdf",
+    "target_entity_id": "SME-202",
+    "document_ai_processor": "IDENTITY_AND_CORPORATE_KYC_PARSER",
+    "page_count": 4,
+    "visual_style": "LOW_CONTRAST_GRAYSCALE_XEROX_WITH_CREASE",
+    "ocr_confidence": 0.952,
+    "extracted_entities": {
+      "corporate_pan": "AABCA8841M",
+      "entity_name": "Apex Manufacturing Pvt Ltd",
+      "incorporation_date": "2018-08-14",
+      "director_name": "Rajesh Mehta",
+      "board_resolution_limit_usd": 250000.0,
+      "self_attested_signature_present": true
+    },
+    "verification_outcome": "KYC_IDENTITY_VERIFIED_EDD_REQUIRED_PER_RBI_16C"
+  },
+  "DOC-05": {
+    "doc_code": "DOC-05",
+    "filename": "doc-05-aarav-sharma-e-filed-tax-return-4p.pdf",
+    "target_entity_id": "CUST-101",
+    "document_ai_processor": "TAX_RETURN_ITR_PARSER",
+    "page_count": 4,
+    "visual_style": "CLEAN_PRINTED_GOVT_FORM_WITH_WATERMARK",
+    "ocr_confidence": 0.996,
+    "extracted_entities": {
+      "taxpayer_name": "Aarav Sharma",
+      "pan": "ABCPS4921K",
+      "assessment_year": "2025-26",
+      "annual_gross_receipts_usd": 171000.0,
+      "implied_monthly_gross_usd": 14250.0,
+      "allowable_deductions_usd": 42600.0,
+      "adjusted_gross_income_usd": 128400.0,
+      "tax_paid_usd": 24100.0,
+      "challan_number": "IT-992014"
+    },
+    "verification_outcome": "VERIFIED_100_PCT_MATCH_WITH_DOC_01_AND_BIGQUERY"
+  },
+  "DOC-06": {
+    "doc_code": "DOC-06",
+    "filename": "doc-06-netcorp-valid-vendor-invoice-2p.pdf",
+    "target_entity_id": "CUST-101",
+    "document_ai_processor": "INVOICE_PARSER",
+    "page_count": 2,
+    "visual_style": "CLEAN_CORPORATE_B2B_INVOICE",
+    "ocr_confidence": 0.997,
+    "extracted_entities": {
+      "invoice_id": "INV-2026-881",
+      "vendor_name": "NetCorp Cloud Services LLC",
+      "vendor_email": "billing@netcorp.com",
+      "beneficiary_account": "AC-7700222209",
+      "beneficiary_last4": "2209",
+      "amount_due_usd": 8450.0
+    },
+    "verification_outcome": "SAFE_MATCHES_ALLOYDB_WHITELISTED_VENDOR_VEND_901"
+  },
+  "DOC-07": {
+    "doc_code": "DOC-07",
+    "filename": "doc-07-netcorp-spoofed-scam-invoice-2p.pdf",
+    "target_entity_id": "CUST-101",
+    "document_ai_processor": "INVOICE_PARSER_PLUS_GEMINI_SCAM_VISION",
+    "page_count": 2,
+    "visual_style": "PIXELATED_PDF_WITH_RED_URGENCY_STAMP",
+    "ocr_confidence": 0.974,
+    "extracted_entities": {
+      "invoice_id": "INV-2026-992",
+      "vendor_name": "NetCorp Billing LLC",
+      "vendor_email": "accounts@netcorp-pay.co",
+      "beneficiary_account": "AC-7700998841",
+      "beneficiary_last4": "8841",
+      "amount_due_usd": 14250.0,
+      "urgency_stamp_text": "URGENT: REVISED BANK ACCOUNT DETAILS - WIRE IMMEDIATELY"
+    },
+    "verification_outcome": "BLOCKED_HIGH_RISK_APP_SCAM_ROUTING_AND_DOMAIN_MISMATCH"
+  },
+  "DOC-08": {
+    "doc_code": "DOC-08",
+    "filename": "doc-08-priya-nair-handwritten-repair-estimate.pdf",
+    "target_entity_id": "INS-404",
+    "document_ai_processor": "CUSTOM_HANDWRITING_CLAIM_PARSER",
+    "page_count": 2,
+    "visual_style": "YELLOW_CARBON_COPY_GARAGE_PAD_BLACK_INK",
+    "ocr_confidence": 0.938,
+    "extracted_entities": {
+      "estimate_no": "00492",
+      "workshop_name": "Metro Auto Body & Collision Works",
+      "claimant_name": "Priya Nair",
+      "vehicle_reg": "KA-22-MG-4410",
+      "line_items": [
+        {
+          "item": "Front Bumper Assembly Replacement",
+          "cost_usd": 1450.0
+        },
+        {
+          "item": "Right Matrix LED Headlamp Unit",
+          "cost_usd": 1680.0
+        },
+        {
+          "item": "Front Radar Sensor & Calibration",
+          "cost_usd": 920.0
+        },
+        {
+          "item": "Sheet Metal Denting, Painting & 16 Hrs Labor",
+          "cost_usd": 800.0
+        }
+      ],
+      "total_estimate_usd": 4850.0,
+      "policy_deductible_usd": 500.0,
+      "net_approved_claim_usd": 4350.0
+    },
+    "verification_outcome": "APPROVED_LESS_DEDUCTIBLE"
+  },
+  "DOC-09": {
+    "doc_code": "DOC-09",
+    "filename": "doc-09-priya-nair-mixed-medical-claim-7p.pdf",
+    "target_entity_id": "INS-404",
+    "document_ai_processor": "MULTIMODAL_MEDICAL_CLAIM_AUDITOR",
+    "page_count": 7,
+    "visual_style": "MIXED_PRINTED_DISCHARGE_HANDWRITTEN_NOTES_THERMAL_XEROX_BILL",
+    "ocr_confidence": 0.934,
+    "extracted_entities": {
+      "patient_name": "Priya Nair",
+      "policy_number": "POL-884120",
+      "hospital": "Metro Care Multi-Specialty Hospital",
+      "handwritten_surgeon_note_page_4": "1x Titanium Orthopedic Implant Batch #TK99 fixed",
+      "total_billed_page_7_usd": 11450.0,
+      "duplicate_implant_rows_page_7": [
+        {
+          "line": 14,
+          "date": "2026-10-03",
+          "batch": "TK99",
+          "amount_usd": 3200.0
+        },
+        {
+          "line": 19,
+          "date": "2026-10-05",
+          "batch": "TK99",
+          "amount_usd": 3200.0
+        }
+      ],
+      "duplicate_overcharge_deducted_usd": 3200.0,
+      "policy_deductible_usd": 500.0,
+      "final_adjusted_payout_usd": 7750.0
+    },
+    "verification_outcome": "PARTIAL_APPROVAL_DUPLICATE_BATCH_TK99_DEDUCTED_CLM_208_4"
+  },
+  "DOC-10": {
+    "doc_code": "DOC-10",
+    "filename": "doc-10-whatsapp-sms-qr-scam-lure-1p.pdf",
+    "target_entity_id": "CUST-101",
+    "document_ai_processor": "GEMINI_MULTIMODAL_SCAM_SHIELD",
+    "page_count": 1,
+    "visual_style": "MOBILE_CHAT_SCREENSHOT_WITH_QR",
+    "ocr_confidence": 0.991,
+    "extracted_entities": {
+      "sender_phone": "+91-98990-00112",
+      "lure_amount_usd": 4850.0,
+      "malicious_url": "https://pay-finguard-verify.co/now",
+      "social_engineering_tactic": "30-minute utility/account suspension countdown + unverified QR"
+    },
+    "verification_outcome": "CRITICAL_PHISHING_QR_SCAM_BLOCKED"
+  },
+  "DOC-11": {
+    "doc_code": "DOC-11",
+    "filename": "doc-11-aml-faxed-shell-trade-invoices-8p.pdf",
+    "target_entity_id": "AML-301",
+    "document_ai_processor": "TRADE_FINANCE_INVOICE_AND_BOL_PARSER",
+    "page_count": 8,
+    "visual_style": "FAXED_MONOSPACE_HEADER_GRAYSCALE_XEROX",
+    "ocr_confidence": 0.912,
+    "extracted_entities": {
+      "fax_origin_header": "11-OCT-2026 02:14 AM FAX: +44-20-7946-0991",
+      "linked_invoices": [
+        {
+          "pages": "1-2",
+          "seller": "Zenith Imports LLP",
+          "buyer": "Nova Logistics",
+          "amount_usd": 1200000.0,
+          "item": "Enterprise Software & Consulting Modules - Lot A"
+        },
+        {
+          "pages": "3-4",
+          "seller": "Nova Logistics",
+          "buyer": "Pacific Exim",
+          "amount_usd": 1195000.0,
+          "item": "Enterprise Software & Consulting Modules - Lot A"
+        },
+        {
+          "pages": "5-6",
+          "seller": "Pacific Exim",
+          "buyer": "Meridian Ventures",
+          "amount_usd": 1190000.0,
+          "item": "Enterprise Software & Consulting Modules - Lot A",
+          "shipping_weight_kg": 0.0,
+          "customs_stamp_present": false
+        },
+        {
+          "pages": "7-8",
+          "seller": "Meridian Ventures",
+          "buyer": "Zenith Imports LLP",
+          "amount_usd": 1185000.0,
+          "item": "Enterprise Software & Consulting Modules - Lot A"
+        }
+      ]
+    },
+    "verification_outcome": "CONFIRMED_TBML_PHANTOM_SHIPMENT_FATF_4_2"
+  },
+  "DOC-12": {
+    "doc_code": "DOC-12",
+    "filename": "doc-12-apex-handwritten-field-inspection-5p.pdf",
+    "target_entity_id": "SME-202",
+    "document_ai_processor": "CUSTOM_HANDWRITING_FORM_EXTRACTOR",
+    "page_count": 5,
+    "visual_style": "CLIPBOARD_CHECKLIST_HANDWRITTEN_NOTES_AND_SITE_PHOTOS",
+    "ocr_confidence": 0.925,
+    "extracted_entities": {
+      "form_code": "FI-09",
+      "inspector": "V. Deshmukh",
+      "inspection_date": "2026-10-12",
+      "declared_cnc_machines": 4,
+      "verified_cnc_machines_on_floor": 2,
+      "handwritten_finding": "Borrower declared 4 operational CNC machines in application, but only 2 machines are physically present on shop floor; Bays 3 and 4 are empty.",
+      "recommendation": "HOLD_DISBURSAL_COLLATERAL_MISMATCH"
+    },
+    "verification_outcome": "COLLATERAL_DEFICIT_CONFIRMED_LOAN_BLOCKED"
+  }
+}
