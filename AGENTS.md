@@ -26,7 +26,8 @@ AI-driven banking risk, fraud & financial command center. Build locally first, d
 
 ## Code map
 - `app/main.py` routes · `app/config.py` settings · `app/data/mock_data.py` demo data
-- `app/services/`: `ai.py` (mock/Gemini provider), `state.py` (shared KPIs/alerts/cases), `fraud.py`, `underwriting.py`, `aml.py`, `coach.py`, `rag.py`, `command.py` (briefing, actions, copilot)
+- `app/services/`: `ai.py` (mock/Gemini provider), `state.py` (shared KPIs/alerts/cases), `fraud.py`, `underwriting.py`, `aml.py`, `coach.py`, `rag.py`, `command.py` (briefing, actions, copilot), `fraudshield.py` (teammate's BigQuery `fraudshield` dataset: mock + BigQuery repos, scorer formula)
+- `app/routers/fraudshield.py` — FraudShield frontend contract (`/metrics`, `/transactions`, `/cases`, `/rings`, also `/api/fs/*`). Treat its field names as a contract with the teammate; flag changes. `USE_MOCK_BQ=false` + `BQ_PROJECT_ID` + ADC for live.
 - `static/`: `index.html`, `styles.css`, `charts.js` (SVG, no CDN), `app.js` (SPA; escape all API text with `esc()`, no inline handlers)
 
 ## Reference docs (read when relevant)

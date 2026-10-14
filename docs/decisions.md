@@ -17,3 +17,7 @@
 | 2026-10-14 | Planned: multi-agent system (Orchestrator + 4 tool-calling agents) with a live execution trace; code in `app/agents/` | Show agents acting with tools, not a chat box (docs/agents-plan.md) |
 | 2026-10-14 | Add Model Armor + Sensitive Data Protection (safety), Vertex AI RAG Engine (grounding), Vertex AI Agent Engine (agent hosting), Gemini Live API + Cloud Translation (voice, languages) | Responsible AI for banking; real citations; managed agents; demo moment |
 | 2026-10-14 | Agent context in AGENTS.md, MEMORY.md, docs/ | Shared context for Cortex Code and other agents |
+| 2026-10-14 | Adopt teammate's FraudShield backend brief (Section 5) as the API contract; built Phase A endpoints first in `app/routers/fraudshield.py` | Unblocks the frontend; BigQuery pipeline already live on GCP |
+| 2026-10-14 | Analyst decisions stored append-only in `fraudshield.case_decisions` (DML INSERT), latest wins | BigQuery cannot reliably UPDATE freshly streamed rows |
+| 2026-10-14 | Live BigQuery query failures return 503 rather than silently falling back to mock data | Never show synthetic numbers as live; mock is used only when the client cannot initialise |
+| 2026-10-14 | FraudShield thresholds (0.30 / 0.70) coexist with FinGuard payment thresholds (0.40 / 0.75) for now | Different scorers; to be aligned with the team |

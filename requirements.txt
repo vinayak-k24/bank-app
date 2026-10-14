@@ -15,12 +15,14 @@ google-genai>=2.30,<3              # Gemini API / Gemini on Vertex AI (used by a
 google-adk>=2.12,<3                # Agent Development Kit: Orchestrator + 4 tool-calling agents (app/agents/)
 google-antigravity>=0.1.22,<0.2    # Antigravity SDK for Gemini agents (reference; role vs ADK not decided)
 
+# --- Google Cloud data ---
+google-cloud-bigquery>=3.25,<4    # FraudShield dataset: scored_transactions, cases, views (app/services/fraudshield.py)
+
 # --- Tests ---
 pytest>=9.1,<10
 httpx>=0.28,<1               # FastAPI TestClient
 
 # --- Planned Google Cloud clients (uncomment when each live integration is built) ---
-# google-cloud-bigquery            # transactions_history, aml_network_edges, cashflow_30d_forecasts
 # google-cloud-pubsub              # transactions-topic live payment stream
 # google-cloud-documentai          # statement, ID, invoice and claim extraction
 # google-cloud-discoveryengine     # Vertex AI Search (RBI/FATF rules, underwriting policy, product catalog)

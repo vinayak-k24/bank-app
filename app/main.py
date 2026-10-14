@@ -6,12 +6,15 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+from app.config import get_settings
 from app.data import mock_data
-from app.services import aml, claims, coach, command, fraud, state, underwriting
+from app.routers import fraudshield as fraudshield_api
+from app.services import aml, claims, coach, command, fraud, fraudshield, state, underwriting
 from app.services.ai import get_ai
 
 STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
@@ -19,6 +22,15 @@ MAX_UPLOAD_BYTES = 10 * 1024 * 1024
 ALLOWED_UPLOAD_TYPES = {"application/pdf", "image/png", "image/jpeg", "image/webp"}
 
 app = FastAPI(title="FinGuard 360 API", version="3.0.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=get_settings().cors_origin_list,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "X-API-Key"],
+)
+# FraudShield contract for the teammate's frontend: /metrics, /transactions, /cases, /rings (+ /api/fs/* mirror).
+app.include_router(fraudshield_api.router)
+app.include_router(fraudshield_api.router, prefix="/api/fs")
 
 
 class PaymentRequest(BaseModel):
@@ -77,7 +89,7 @@ def _require_persona(customer_id: str) -> None:
 
 @app.get("/api/health")
 def health() -> dict[str, Any]:
-    return {"status": "ONLINE", "ai_mode": get_ai().mode}
+    return {"status": "ONLINE", "ai_mode": get_ai().mode, "data_mode": fraudshield.get_repo().mode}
 
 
 @app.get("/api/personas")
@@ -110,6 +122,7 @@ def get_state() -> dict[str, Any]:
 @app.post("/api/state/reset")
 def reset_state() -> dict[str, Any]:
     state.reset()
+    fraudshield.reset_repo()
     return state.snapshot()
 
 

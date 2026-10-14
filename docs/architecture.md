@@ -30,6 +30,27 @@ tests/test_api.py         # 17 tests pinning demo numbers and cross-page state
 | GET | /api/coach/{cid}/forecast · /api/coach/{cid}/products · POST /api/coach/eligibility | 5 |
 | GET | /api/copilot/suggestions · POST /api/copilot/chat | Copilot |
 
+## FraudShield pipeline (teammate, live on GCP since 2026-10-14)
+```
+PaySim -> Pub/Sub "transactions" -> Cloud Run "fraudshield-scorer"
+          -> BigQuery ML fraud_classifier (boosted tree) + anomaly_kmeans
+          -> BigQuery dataset fraudshield: scored_transactions, cases, v_decision_summary, v_open_cases
+```
+- Score: `0.8*fraud_prob + 0.2*min(anomaly_distance/6, 1)`; velocity_1h >= 5 floors at 0.55; non-IN and amount > 50,000 adds 0.15. APPROVE < 0.30 <= STEP_UP < 0.70 <= HOLD (opens a case).
+- `app/services/fraudshield.py`: `MockFraudShieldRepo` (default, same formula, C_DEMO_001 attack -> CASE-1A2B3C4D at 0.94) and `BigQueryFraudShieldRepo` (`USE_MOCK_BQ=false`, ADC auth, parameterised queries).
+- Analyst decisions are append-only in `fraudshield.case_decisions` (created on first use); the API returns the latest decision per case.
+- `app/routers/fraudshield.py` is the frontend contract, at root and mirrored at `/api/fs/*`. CORS from `CORS_ORIGINS`; optional `X-API-Key` when `API_KEY` is set.
+
+| Method | Path | Notes |
+|---|---|---|
+| GET | /metrics | KPI cards |
+| GET | /transactions?limit=50 | live feed, newest first; never returns label_is_fraud |
+| GET | /cases?status=OPEN | queue sorted by risk desc |
+| GET | /cases/{case_id} | detail incl. ai_summary (null until Phase B) |
+| POST | /cases/{case_id}/decision | APPROVED / REJECTED / ESCALATED; 409 if already final |
+| GET | /rings | customers, devices, accounts linked to held activity |
+| POST | /cases/{case_id}/chat | 501 until Phase B |
+
 ## Original planned layout
 ```
 app/

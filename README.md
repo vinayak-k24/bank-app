@@ -69,6 +69,8 @@ Open http://127.0.0.1:8080. Run the tests with `.\.venv\Scripts\python.exe -m py
 
 To use real Gemini, copy `.env.example` to `.env`, set `USE_MOCK_AI=false`, and set either `GEMINI_API_KEY` or `USE_VERTEX=true` with `GCP_PROJECT_ID`.
 
+To read the live FraudShield BigQuery dataset, run `gcloud auth application-default login`, then in `.env` set `USE_MOCK_BQ=false` and `BQ_PROJECT_ID`. `/api/health` reports `data_mode` (`mock` or `bigquery`). The FraudShield frontend API (`/metrics`, `/transactions`, `/cases`, `/rings`) is documented at http://127.0.0.1:8080/docs.
+
 ## Project layout
 
 ```
